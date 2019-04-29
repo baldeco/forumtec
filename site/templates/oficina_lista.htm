@@ -1,0 +1,103 @@
+<div class="main-container container mt-40" id="main-container">
+  
+  <!-- Conteúdo -->
+  <div class="row">
+    
+    <div class="col-lg-8 blog__content mb-30">
+
+      <!-- Cabeçalho da seção -->
+      <section class="section">
+        <div class="title-wrap">
+          <h3 class="section-title">Oficinas</h3>
+          <a href="#" class="all-posts-url">Ver tudo</a>
+        </div>
+
+        <!--  Lista de oficinas -->
+
+        <!--{section loop=$a_oficinas name=oficina start=0}-->
+
+        <article class="entry post-list">
+
+          <!--  Imagem de divulgação  -->
+          <div class="entry__img-holder post-list__img-holder">
+            <a href="index.php?secao=oficina&modulo=detalhes&id_oficina=<!--{$a_oficinas[oficina].id_oficina}-->">
+              <div class="thumb-container thumb-75">
+                <img data-src="<!--{$a_oficinas[oficina].imagem.sm}-->" src="../img/geral/sem-imagem_sm.jpg" class="entry__img lazyload" alt="">
+              </div>
+            </a>
+          </div>
+
+          <!--  Descrição da oficina  -->
+          <div class="entry__body post-list__body">
+            <div class="entry__header">
+
+              <!--  Título  -->
+              <h2 class="entry__title">
+                <a href="index.php?secao=oficina&modulo=detalhes&id_oficina=<!--{$a_oficinas[oficina].id_oficina}-->"><!--{$a_oficinas[oficina].titulo}--></a>
+              </h2>
+
+              <!-- Participantes da oficina  -->
+
+              <ul class="entry__meta">
+
+                <!--{foreach from=$a_oficinas[oficina].palestrantes item=palestrante}-->
+                <li class="entry__meta-author" style="display: list-item;"> 
+                  <i class="ui-author"></i>
+                  <a href="#"><!--{$palestrante.nome_palestrante}--></a>
+                </li>
+                <!--{/foreach}-->
+                
+              </ul>
+
+              <!--  Informações adicionais  -->
+              <ul class="entry__meta">
+
+                <!--  Data do evento -->
+                <li class="entry__meta-date">
+                  <i class="ui-date"></i>
+
+                  <!--{$a_oficinas[oficina].data_inicio_format}-->
+
+                  <!--{if $a_oficinas[oficina].data_inicio_format != $a_oficinas[oficina].data_fim_format}-->
+                  - <!--{$a_oficinas[oficina].data_fim_format}-->
+                  <!--{/if}-->
+                  
+                </li>
+
+                <!-- Duração do evento -->
+                <li>
+                  Duração:
+                  <!--{$a_oficinas[oficina].hora_inicio_format}--> - <!--{$a_oficinas[oficina].hora_fim_format}-->
+                </li>
+                
+                <!--  <li class="entry__meta-comments">
+                  <i class="ui-comments"></i>
+                  <a href="#">115</a>
+                </li> -->
+                
+              </ul>
+            </div>
+
+            <!--  Texto informativo  -->
+            <div class="entry__excerpt">
+              <p style="text-align: justify;"><!--{$a_oficinas[oficina].descricao|truncate:200:"..."}--></p>
+            </div>
+
+          </div>
+        </article>
+
+        <!--{sectionelse}-->
+        <h5 style="text-transform: uppercase;">não há oficinas disponíveis</h5>
+
+        <!--{/section}-->
+
+      </section>
+
+
+    </div>
+    
+    <!--  Carregando o menu de navegação lateral  -->
+    <!--{include file="menu_lateral.htm"}-->
+    
+  </div>
+</div>

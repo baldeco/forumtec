@@ -1,0 +1,9 @@
+/* Write your custom CSS here */
+
+.inline {
+    display: inline-block;
+}
+
+.autosize {
+    width: auto;
+}

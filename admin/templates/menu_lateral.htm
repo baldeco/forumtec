@@ -1,0 +1,29 @@
+<div class="page-sidebar sidebar">
+  <div class="page-sidebar-inner slimscroll">
+    <ul class="menu accordion-menu">
+      <li class="active">
+        <a href="?secao=dashboard&modulo=home" class="waves-effect waves-button">
+          <span class="menu-icon glyphicon glyphicon-home"></span> Dashboard
+        </a>
+      </li>
+      <li class="droplink <!--{if $secao == 'cadastro' }-->active open<!--{/if}-->">
+        <a href="#" class="waves-effect waves-button">
+          <span class="menu-icon glyphicon glyphicon-briefcase"></span> Cadastros<span class="arrow"></span>
+        </a>
+        <ul class="sub-menu active open">
+          <li<!--{if $modulo == 'palestra' }--> class="active"<!--{/if}-->><a href="?secao=cadastro&modulo=palestra">Palestras</a></li>
+          <li<!--{if $modulo == 'autor' }--> class="active"<!--{/if}-->><a href="?secao=cadastro&modulo=autor">Autores</a></li>
+          <li<!--{if $modulo == 'participante' }--> class="active"<!--{/if}-->><a href="?secao=cadastro&modulo=participante">Participantes</a></li>
+          <li<!--{if $modulo == 'oficina' }--> class="active"<!--{/if}-->><a href="?secao=cadastro&modulo=oficina">Oficinas</a></li>
+          <li<!--{if $modulo == 'palestrante' }--> class="active"<!--{/if}-->><a href="?secao=cadastro&modulo=palestrante">Palestrantes</a></li>
+          <li<!--{if $modulo == 'patrocinador' }--> class="active"<!--{/if}-->><a href="?secao=cadastro&modulo=patrocinador">Patrocinadores</a></li>
+          <li<!--{if $modulo == 'noticia' }--> class="active"<!--{/if}-->><a href="?secao=cadastro&modulo=noticia">Noticias</a></li>
+          <li<!--{if $modulo == 'instituicao' }--> class="active"<!--{/if}-->><a href="?secao=cadastro&modulo=instituicao">Insituições</a></li>
+          <li<!--{if $modulo == 'local' }--> class="active"<!--{/if}-->><a href="?secao=cadastro&modulo=local">Locais</a></li>
+          <li<!--{if $modulo == 'banner' }--> class="active"<!--{/if}-->><a href="?secao=cadastro&modulo=banner">Banners</a></li>
+          <li<!--{if $modulo == 'usuario' }--> class="active"<!--{/if}-->><a href="?secao=cadastro&modulo=usuario">Usuários</a></li>
+        </ul>
+      </li>
+    </ul>
+  </div>
+</div>

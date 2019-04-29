@@ -1,0 +1,118 @@
+<div class="main-container container mt-40" id="main-container">
+  <div class="row">
+    <div class="col-lg-8 blog__content mb-30">
+      <ul class="breadcrumbs">
+        <li class="breadcrumbs__item"><a href="index.php" class="breadcrumbs__url"><i class="ui-home"></i></a></li>
+        <li class="breadcrumbs__item"><a href="index.php?secao=palestra&modulo=lista" class="breadcrumbs__url">Palestras</a></li>
+      </ul>
+      <!-- Form Checkin -->
+      <article class="entry text-center">
+        <div class="alert alert-info" role="alert">
+          <div class="single-post__entry-header entry__header">
+            <h1 class="single-post__entry-title">Check-in Palestra</h1>
+          </div>
+          <div id="checkin-area">
+            <form id="checkin-form" method="post" action="acao.php" class="form-horizontal">
+              <!-- E-mail -->
+              <div class="form-group">
+                <label class="control-label">Digite seu E-MAIL</label>
+                <div class="col-sm-12">
+                  <input type="email" name="f_email" class="form-control" value="" placeholder="E-mail" required>
+                </div>
+              </div>
+              <!-- Botões e Hidden fields -->
+              <div class="form-group">
+                <div class="col-sm-12">
+                  <input type="hidden" name="f_token" value="<!--{$a_palestra.token}-->">
+                  <input type="hidden" id="lat" name="f_lat" value="">
+                  <input type="hidden" id="lng" name="f_lng" value="">
+                  <input type="hidden" name="secao" value="palestra">
+                  <input type="hidden" name="modulo" value="checkin">
+                  <button type="submit" class="btn btn-success btn-block">Fazer Check-in</button>
+                </div>
+              </div>
+            </form>
+          </div>
+        </div>
+        <hr>
+      </article>
+      <!-- Corpo da palestra -->
+      <article class="entry">
+        <!-- Título -->
+        <div class="single-post__entry-header entry__header">
+          <h1 class="single-post__entry-title"><!--{$a_palestra.titulo}--></h1>
+        </div>
+        <!-- Imagem de divulgação -->
+        <div class="entry__img-holder">
+          <img src="<!--{$a_palestra.imagem.bg}-->" alt="" class="entry__img">
+        </div>
+        <!-- Descrição -->
+        <div class="entry__article">
+          <p style="text-align: justify;"><!--{$a_palestra.descricao}--></p>
+        </div>
+        <!--  Data do evento  -->
+        <h6 class="uppercase">Data do evento:
+          <!--{$a_palestra.data_inicio_format}-->
+
+          <!--{if $a_palestra.data_inicio_format != $a_palestra.data_fim_format}-->
+          - <!--{$a_palestra.data_fim_format}-->
+          <!--{/if}-->
+        </h6>
+        <!-- Local -->
+        <h6 class="uppercase" style="color:black;">Local: <!--{$a_palestra.nome_local}--></h6>
+        <!-- Duração do evento -->
+        <h6 class="uppercase">Duração: <!--{$a_palestra.hora_inicio_format}--> - <!--{$a_palestra.hora_fim_format}--></h6>
+        <!-- Palestrantes -->
+        <div class="title-wrap mt-40">
+          <h5 class="uppercase">Lista de palestrantes...</h5>
+        </div>
+      </article>
+    </div>
+    <!--  Menu lateral -->
+    <!--{include file="menu_lateral.htm"}-->
+  </div>
+</div>
+<script>
+function success (position) {
+  $('#lat').val(position.coords.latitude);
+  $('#lng').val(position.coords.longitude);
+}
+
+function showError (error) {
+  var mensagem = 'Geolocalização não é suportada nesse browser.';
+
+  // https://support.google.com/chrome/answer/142065?hl=pt-BR
+
+  $('#checkin-form').remove();
+  if (error !== null && typeof error === 'object') {
+    switch (error.code) {
+      case error.PERMISSION_DENIED:
+        mensagem = 'Usuário rejeitou a solicitação de Geolocalização.';
+        break;
+      case error.POSITION_UNAVAILABLE:
+        mensagem = 'Localização indisponível.';
+        break;
+      case error.TIMEOUT:
+        mensagem = 'O tempo da requisição expirou.';
+        break;
+      case error.UNKNOWN_ERROR:
+        mensagem = 'Algum erro desconhecido aconteceu.';
+        break;
+    }
+  }
+  mensagem += '<br>Para fazer Check-in é necessário confirmar sua localização!<br>';
+  $('#checkin-area').html(mensagem);
+}
+
+function getLocation () {
+  if (navigator.geolocation) {
+    navigator.geolocation.getCurrentPosition(success, showError);
+  } else {
+    showError('Geolocalização não é suportada nesse browser.');
+  }
+}
+
+$(document).ready(function () {
+  /* getLocation(); */
+});
+</script>

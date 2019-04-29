@@ -1,0 +1,191 @@
+<!-- Menu lateral  -->
+<aside class="col-lg-4 sidebar sidebar--right">       
+
+  <!-- Lista de patrocinadores -->
+
+  <!--{if $a_patrocinadores}-->
+  
+  <div class="widget widget-gallery-sm">
+
+    <!--  Cabeçalho da seção de listagem dos patrocinadores-->
+    <h4 class="widget-title" align="left">Patrocinadores</h4>
+
+    <ul class="widget-gallery-sm__list">
+
+      <!--{foreach from=$a_patrocinadores item=patrocinador}-->
+      <li style="width: 100%;" class="widget-gallery-sm__item">
+
+        <!--{if $patrocinador.logo == ''}-->        
+        
+        <h4 style="font-size: 1.5em; text-transform: uppercase;"><!--{$patrocinador.nome}--></h4>
+        
+        <!--{else}-->
+        <img src="<!--{$patrocinador.logo}-->" alt="">
+
+        <!--{/if}-->
+
+      </li>
+
+      <!--{/foreach}-->
+
+    </ul>
+  </div> 
+
+  <!--{/if}-->
+
+  <!-- Tabelas das palestras/oficinas do dia -->
+  <div class="widget widget-tabpost">
+    <div class="tabs widget-tabpost__tabs">
+
+      <ul class="tabs__list widget-tabpost__tabs-list">
+
+        <li class="tabs__item widget-tabpost__tabs-item tabs__item--active">
+          <a href="#tab-latest" class="tabs__url tabs__trigger widget-tabpost__tabs-url">Próximas palestras</a>
+        </li>         
+
+        <li class="tabs__item widget-tabpost__tabs-item">
+          <a href="#tab-comments" class="tabs__url tabs__trigger widget-tabpost__tabs-url">Próximas oficinas</a>
+        </li>  
+
+      </ul> 
+
+      <!-- Conteúdo da tabela -->
+      <div class="tabs__content tabs__content-trigger widget-tabpost__tabs-content">
+
+        <!-- Coluna das palestras -->
+        <div class="tabs__content-pane tabs__content-pane--active" id="tab-latest">
+
+          <!-- Lista das palestras do dia -->
+          <ul class="post-list-small">
+
+            <!--{section loop=$a_proximas_palestras start=0 name=proxima_palestra}-->
+            <li class="post-list-small__item">
+              <article class="post-list-small__entry clearfix">
+
+                <!-- Imagem de divulgação -->
+                <div class="post-list-small__img-holder">
+                  <div class="thumb-container thumb-75">
+                    <a href="index.php?secao=palestra&modulo=detalhes&id_palestra=<!--{$a_proximas_palestras[proxima_palestra].id_palestra}-->">
+                      <img data-src="<!--{$a_proximas_palestras[proxima_palestra].imagem.sm}-->" src="../img/geral/sem-imagem_sm.jpg" alt="" class=" lazyload">
+                    </a>
+                  </div>
+                </div>
+
+                <!-- Informações adicionais -->
+                <div class="post-list-small__body">
+
+                  <!-- Título -->
+                  <h3 class="post-list-small__entry-title">
+                    <a href="index.php?secao=palestra&modulo=detalhes&id_palestra=<!--{$a_proximas_palestras[proxima_palestra].id_palestra}-->"><!--{$a_proximas_palestras[proxima_palestra].titulo}--></a>
+                  </h3>
+                  
+                  <!--  Data do evento -->
+                  <ul class="entry__meta">
+                    <li class="entry__meta-date">
+                      <i class="ui-date"></i>
+
+                      <!--{$a_proximas_palestras[proxima_palestra].data_inicio_format}-->
+
+                      <!--{if $a_proximas_palestras[proxima_palestra].data_inicio_format != $a_proximas_palestras[proxima_palestra].data_fim_format}-->
+                      - <!--{$a_proximas_palestras[proxima_palestra].data_fim_format}-->
+                      <!--{/if}-->
+
+                    </li>
+                  </ul>
+
+                  <!--  Duração do evento -->
+                  <ul class="entry__meta">
+
+                    <li>
+                      Duração:
+                      <!--{$a_proximas_palestras[proxima_palestra].hora_inicio_format}--> - <!--{$a_proximas_palestras[proxima_palestra].hora_fim_format}-->
+                    </li>
+
+                  </ul>
+
+                </div>   
+
+              </article>
+            </li>
+
+            <!--{sectionelse}-->
+            <li class="post-list-small__item">
+              <h3 class="post-list-small__entry-title">Nenhuma palestra está disponível</h3>
+            </li>
+
+            <!--{/section}-->
+
+          </ul>
+        </div>
+
+        <!-- Coluna das oficinas -->
+        <div class="tabs__content-pane" id="tab-comments">
+
+          <!-- Lista das oficinas do dia -->
+          <ul class="post-list-small">
+
+            <!--{section loop=$a_proximas_oficinas start=0 name=proxima_oficina}-->
+            <li class="post-list-small__item">
+              <article class="post-list-small__entry clearfix">
+
+                <!-- Imagem de divulgação -->
+                <div class="post-list-small__img-holder">
+                  <div class="thumb-container thumb-75">
+                    <a href="index.php?secao=oficina&modulo=detalhes&id_oficina=<!--{$a_proximas_oficinas[proxima_oficina].id_oficina}-->">
+                      <img data-src="<!--{$a_proximas_oficinas[proxima_oficina].imagem.sm}-->" src="../img/geral/sem-imagem_sm.jpg" alt="" class=" lazyload">
+                    </a>
+                  </div>
+                </div>
+
+                <!-- Informações adicionais -->
+                <div class="post-list-small__body">
+
+                  <!-- Título -->
+                  <h3 class="post-list-small__entry-title">
+                    <a href="index.php?secao=oficina&modulo=detalhes&id_oficina=<!--{$a_proximas_oficinas[proxima_oficina].id_oficina}-->"><!--{$a_proximas_oficinas[proxima_oficina].titulo}--></a>
+                  </h3>
+                  
+                  <!--  Data do evento -->
+                  <ul class="entry__meta">
+                    <li class="entry__meta-date">
+                      <i class="ui-date"></i>
+
+                      <!--{$a_proximas_oficinas[proxima_oficina].data_inicio_format}-->
+
+                      <!--{if $a_proximas_oficinas[proxima_oficina].data_inicio_format != $a_proximas_oficinas[proxima_oficina].data_fim_format}-->
+                      - <!--{$a_proximas_oficinas[proxima_oficina].data_fim_format}-->
+                      <!--{/if}-->
+
+                    </li>
+                  </ul>
+
+                  <!--  Duração do evento -->
+                  <ul class="entry__meta">
+
+                    <li>
+                      Duração:
+                      <!--{$a_proximas_oficinas[proxima_oficina].hora_inicio_format}--> - <!--{$a_proximas_oficinas[proxima_oficina].hora_fim_format}-->
+                    </li>
+
+                  </ul>
+
+                </div>   
+
+              </article>
+            </li>
+
+            <!--{sectionelse}-->
+            <li class="post-list-small__item">
+              <h3 class="post-list-small__entry-title">Nenhuma oficina está disponível</h3>
+            </li>
+            
+            <!--{/section}-->
+
+          </ul>
+        </div>
+
+      </div> 
+    </div>             
+  </div> 
+
+</aside>

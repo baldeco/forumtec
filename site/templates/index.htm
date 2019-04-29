@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title><!--{if $secao == 'dashboard'}-->FET <!--{else}--><!--{$secao|upper}--><!--{/if}--> | <!--{$modulo|upper}--></title>
+  <meta name="description" content="">
+  <meta name="keywords" content="">
+  <meta name="author" content="">
+  <link rel="shortcut icon" href="assets/img/favicon.ico">
+  <link rel="apple-touch-icon" href="assets/img/apple-touch-icon.png">
+  <link rel="apple-touch-icon" sizes="72x72" href="assets/img/apple-touch-icon-72x72.png">
+  <link rel="apple-touch-icon" sizes="114x114" href="assets/img/apple-touch-icon-114x114.png">
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,600,700">
+  <link rel="stylesheet" href="assets/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/css/font-icons.css">
+  <link rel="stylesheet" href="assets/css/style.css">
+  <script src="assets/js/lazysizes.min.js"></script>
+  <script src="assets/js/jquery.min.js"></script>
+  <script src="assets/js/bootstrap.min.js"></script>
+  <script src="assets/js/functions.js" type="text/javascript"></script>
+</head>
+
+<body class="bg-light">
+  <!-- Preloader -->
+  <div class="loader-mask">
+    <div class="loader">
+      <div></div>
+    </div>
+  </div>
+  <!-- Bg Overlay -->
+  <div class="content-overlay"></div>
+  <!--  Todo conteúdo fica dentro desta tag main -->
+  <main class="main oh" id="main">
+    <!--{if $template}-->
+    <!--{include file="menu_topo.htm"}-->
+    <!--{include file=$template}-->
+    <!--{include file="rodape.htm"}-->
+    <!--{else}-->
+    ERROR! template <!--{$template_x}--> not found
+    <!--{/if}-->
+  </main>
+  <script src="assets/js/easing.min.js"></script>
+  <script src="assets/js/owl-carousel.min.js"></script>
+  <script src="assets/js/twitterFetcher_min.js"></script>
+  <script src="assets/js/jquery.newsTicker.min.js"></script>
+  <script src="assets/js/modernizr.min.js"></script>
+  <script src="assets/js/scripts.js"></script>
+</body>
+</html>
