@@ -76,6 +76,39 @@ function buscarPalestras($limite = '') {
 
 }
 
+function buscarPalestrasDoDia($limite = '', $data = '') {
+  global $conexao;
+
+  if (!empty($limite) && $limite > 0) {
+    $limite = 'LIMIT '.$limite;
+
+  } else {
+    $limite = '';
+  }
+ 
+  $sql = 'SELECT p.*,
+                 l.nome AS nome_local, 
+                 date_format(p.inicio, "%d/%m/%Y") AS data_inicio_format,
+                 date_format(p.fim, "%d/%m/%Y") AS data_fim_format,
+                 date_format(p.inicio, "%H:%i") AS hora_inicio_format,
+                 date_format(p.fim, "%H:%i") AS hora_fim_format
+            FROM palestra AS p
+            LEFT JOIN local AS l ON p.id_local = l.id_local
+            WHERE p.status = "a" && p.inicio LIKE "'.$data.'%"
+            ORDER BY p.inicio desc
+            '.$limite;
+
+  $rs = executa($sql, $conexao);
+  
+  $a_palestras = buscar($rs);
+
+  if($a_palestras != false)
+  {
+    return $a_palestras;
+  }
+  return null;
+}
+
 function buscarPalestraToken($token) {
 
   global $conexao;
@@ -208,6 +241,28 @@ function buscarProximasPalestras($limite = '') {
 
 }
 
+function filtraPalestras($palestras_data,$hora)
+{
+  $turno_selecionado = identificaTurno(date('H', strtotime($hora)));
+
+  $contador = 0;
+
+  for ($i=0; $i < sizeof($palestras_data); $i++) 
+  { 
+    $turnoPalestra = identificaTurno(date('H', strtotime($palestras_data[$i]['inicio'])));
+
+    $identificaTurno = comparaTurno($turno_selecionado,$turnoPalestra);
+
+    if ($identificaTurno == true) // Se for do mesmo turno, armazena a id da palestra.
+    { 
+      $palestras_turno[$contador] = $palestras_data[$i]['id_palestra']; 
+      $contador++;
+    }
+  }
+
+  return $palestras_turno;
+}
+
 function buscarCheckin($id_palestra, $id_participante) {
 
   global $conexao;
@@ -275,7 +330,7 @@ function salvarCheckout($id, $lat, $lng) {
   return false;
 }
 
-/*
+
 function verificaCadastro($id_participante,$palestras_filtradas)
 {
   global $conexao;
@@ -299,4 +354,25 @@ function verificaCadastro($id_participante,$palestras_filtradas)
   }
   return false;
 }
-*/
+
+function identificaTurno($hora) //Identifica o turno apartir do inicio da palestra
+{
+  if ($hora < 12) 
+ {
+   return $turno = "manha";
+ }
+ if (($hora > 12) && ($hora < 19))
+ {
+   return $turno = "tarde";
+ }
+  return $turno = "noite";
+}
+
+function comparaTurno($turnoAtual,$turnoPalestra)
+{
+ if ($turnoAtual ==  $turnoPalestra)
+ {
+  return true;
+ }
+ return false;
+}

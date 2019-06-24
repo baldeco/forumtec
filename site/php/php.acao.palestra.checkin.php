@@ -20,6 +20,7 @@ $id_palestra = $a_palestra['id_palestra'];
 
 // Recupera do DB Participante
 $id_participante = buscarIDParticipantePorEmail($a_dados['email']);
+
 //Se o participante não tiver nenhum cadastro na tabela participante
 if ($id_participante == false) {
   header('Location: index.php?secao=inscricao&modulo=noDia&id_palestra='.$id_palestra);
@@ -28,21 +29,28 @@ if ($id_participante == false) {
 
 // Calcula tempo minimo de permanencia
 $agora = date('Y-m-d H:i:s');
+
+// A lógica de tempo de permanência, vai ser substituída.
 $tempo_min = intervalo_minutos($a_palestra['inicio'], $a_palestra['fim']);
 $tempo_min = ceil($tempo_min * 0.75);
 
 // Recupera do DB o check
 $checkin = buscarCheckin($id_palestra, $id_participante);
 
-/*
+$dia_palestra = date('Y-m-d', strtotime($a_palestra['inicio'])); // Seleciona o dia da palestra.
+
+// Filtra as palestras do dia de acordo com o dia da palestra da página de check-in.
+$palestras_data = buscarPalestrasDoDia($limite,$dia_palestra);
+
+// Filtra as palestras apartir do turno da palestra. 
+$palestras_filtradas = filtraPalestras($palestras_data,$a_palestra['inicio']);
+
 // Se o usuário não está relacionado com nenhuma palestra do dia ou do turno.
 $validacao = verificaCadastro($id_participante,$palestras_filtradas); 
 if ($validacao == false) {
   header('Location: index.php?secao=inscricao&modulo=noDia&id_palestra='.$id_palestra);
   exit;
 }
-*/
-
 
 // Verifica se ja fez Checkin
 if (empty($checkin['entrada'])) {
