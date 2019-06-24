@@ -31,6 +31,10 @@ switch ($secao) {
       case 'participante':
         include_once('php/php.acao.inscricao.participante.php');
         break;
+
+      case 'noDia':
+        include_once('php/php.acao.inscricao.noDia.php');
+        break;
     }
     break;
 

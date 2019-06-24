@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.1, created on 2018-10-17 20:26:56
+<?php /* Smarty version 2.6.1, created on 2019-06-23 22:46:24
          compiled from palestra_checkin.htm */ ?>
 <div class="main-container container mt-40" id="main-container">
   <div class="row">
@@ -26,6 +26,12 @@
       <?php elseif ($_GET['erro'] == 1): ?>
       <button id="msg-erro" style="background-color: red; width: 100%; margin-bottom: 5px; cursor: default;" class="btn btn-lg btn-color btn-button">Não foi possível realizar o check-out</button>
       <?php endif; ?>
+      <?php endif; ?>
+
+      <!--  Mensagem inscrição e check-in realizados com sucesso -->
+
+      <?php if ($_GET['sucesso'] == 2): ?>
+        <button id="msg-sucesso" style="background-color: #66CD00; width: 100%; cursor: default;" class="btn btn-lg btn-color btn-button">Inscrição e Check-in realizados com sucesso</button>
       <?php endif; ?>
 
       <!-- Form Checkin -->
@@ -151,4 +157,4 @@ function getLocation () {
 $(document).ready(function () {
   /* getLocation(); */
 });
-</script>
+</script>

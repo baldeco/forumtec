@@ -100,6 +100,22 @@ function buscarPalestraToken($token) {
   return false;
 }
 
+function buscarToken($id_palestra) {
+
+  global $conexao;
+
+  $sql = 'SELECT token
+            FROM palestra 
+            WHERE id_palestra = '.$id_palestra;
+
+  $rs = executa($sql, $conexao);
+  $a_palestra = buscar($rs);
+
+  $token = $a_palestra[0]['token'];
+
+  return $token;
+}
+
 function buscarPalestrasPorData($limite = '', $data='') {
 
   global $conexao;
@@ -258,3 +274,29 @@ function salvarCheckout($id, $lat, $lng) {
 
   return false;
 }
+
+/*
+function verificaCadastro($id_participante,$palestras_filtradas)
+{
+  global $conexao;
+
+  //Verifico se o participante tá cadastrado em alguma das palestras
+  for ($i=0; $i <sizeof($palestras_filtradas); $i++) 
+  { 
+
+    $sql = 'SELECT *
+              FROM participante_palestra
+              WHERE id_palestra = '.$palestras_filtradas[$i].'
+               AND id_participante = '.$id_participante;
+
+    $rs = executa($sql, $conexao);
+
+    $a_checkin = buscar($rs);
+    // Na primeira confirmação, é retornado que o participante está registrado.
+    if ($a_checkin != false) {
+      return true;
+    }  
+  }
+  return false;
+}
+*/

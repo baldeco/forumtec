@@ -25,7 +25,7 @@ switch ($_POST['tipo']) {
       $a_dados['lat'] = $_POST['f_lat'];
       $a_dados['lng'] = $_POST['f_lng'];
       $a_dados['id_palestra'] = (int)$_POST['id_palestra'];
-      
+
       $id_participante = buscarIDParticipantePorEmail($a_dados['email']);
 
       if(!$id_participante){
@@ -34,14 +34,14 @@ switch ($_POST['tipo']) {
 
       if (inserirParticipantePalestra($a_dados['id_palestra'], $id_participante)) 
       {
-        $particiante_id = buscarIDParticipantePorEmail($a_dados['email']);
+        $participante_id = buscarIDParticipantePorEmail($a_dados['email']);
 
-        $checkin = buscarCheckin($a_dados['id_palestra'], $particiante_id);
+        $checkin = buscarCheckin($a_dados['id_palestra'], $participante_id);
 
         salvarCheckin($checkin['id_participante_palestra'],$a_dados['lat'],$a_dados['lng']); 
-
+     
         $token = buscarToken($a_dados['id_palestra']);
-         
+        
         $sucesso = 2;
          
          die(header('Location: index.php?secao=palestra&modulo=checkin&token='.$token.'&sucesso='.$sucesso));
