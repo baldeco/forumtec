@@ -89,6 +89,7 @@ if ($validacao == false) {
 }
 //**********************************************************************************************
 
+// LÓGICA ORIGINAL:
 // Recupera do DB o check
 $checkin = buscarCheckin($id_palestra, $id_participante);
 
@@ -116,3 +117,76 @@ if (empty($checkin['entrada'])) {
 
 header('Location: index.php?secao=palestra&modulo=checkin&token='.$a_dados['token'].'&mov='.$mov.$status);
 exit();
+
+// NOVA LÓGICA (AINDA EM DESENVOLVIMENTO)
+/*
+// Verificação dos registro da tabela participante_palestra:
+
+//Verifica em todos os registros relacionados com o participante, se o campo check-in está ocupado.
+$checkin_preenchido = procurarCheckin($id_participante,$palestras_filtradas);
+if ($checkin_preenchido != false) { // Se algum estiver com o campo preenchido, é retornado o registro.
+  // Recupera do DB o check
+  $checkin = buscarCheckin($checkin_preenchido['id_palestra'], $id_participante); 
+  //$checkin = buscarCheckin($checkin_preenchido[0]['id_palestra'], $id_participante); 
+}
+
+if ($checkin_preenchido == false)
+{
+  echo "Entra na condição check-in preenchido igual a false";
+  exit;
+
+  //Verifico se a palestra, na qual está tendo a tentiva de check-in, está relacionada com o participante.
+  $verificado = buscarCheckin($id_palestra, $id_participante);
+  if ($verificado != false) // Se estiverem relacionados.
+  { 
+    // Recupera do DB o check, para salvar a entrada.
+    $checkin = buscarCheckin($id_palestra, $id_participante);
+  }
+  if ($verificado == false) // Se não estiverem relecionados.
+  {
+    //echo "Entrou em verificado igual a falso";
+    //exit;
+    //A EXECUÇÃO DESSA CONDIÇÃO DEVE SER AONDE ESTÁ O ERRO.
+
+    // Busco qual das palestra o participante está relacionado, sendo retornado o primeiro registro.
+    $a_checkin = alternativasCheckin($id_participante, $palestras_filtradas);
+    $palestra_id = $a_checkin['id_palestra'];
+    $checkin = buscarCheckin($palestra_id, $id_participante); // Recupera do DB o check, para salvar.
+  }
+}
+
+
+//if (isset($checkin)) {
+    //echo "Check-out existe.";
+//}
+//if (!isset($checkin)) {
+  //echo "Check-out não existe.";
+//}
+
+Verifica se ja fez Checkin:
+Se o campo check-in estiver vazio, então salva o check-in.
+if (empty($checkin['entrada'])) {
+{
+  // Salva o Check-in.
+  $mov = 'E';
+  if (salvarCheckin($checkin['id_participante_palestra'], $a_dados['lat'], $a_dados['lng'])) $status = '&sucesso=1';
+  else $status = '&erro=1';
+}
+
+// Se o campo check-in estiver ocupado, salva o check-out.
+if (!empty($checkin['entrada'])) {
+{
+  if (strtotime($agora) > strtotime($horario_maximo)) 
+  {
+    exit('Horario para checkout encerrado!');
+  }
+  
+  // Salva o Check-out.
+  $mov = 'S';
+  if (salvarCheckout($checkin['id_participante_palestra'], $a_dados['lat'], $a_dados['lng'])) $status = '&sucesso=1';
+  else $status = '&erro=1';
+}
+
+header('Location: index.php?secao=palestra&modulo=checkin&token='.$a_dados['token'].'&mov='.$mov.$status);
+exit();
+*/
