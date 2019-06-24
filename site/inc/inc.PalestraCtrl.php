@@ -501,3 +501,60 @@ function identificaUltima($palestras_turno)
   }
   return $comparativo['fim'];
 }
+
+
+// AINDA EM DESENVOLVIMENTO.
+/*
+function procurarCheckin($id_participante, $palestras_filtradas) {
+  // Verifica em todos os registros que tiver,os quais estiverem relacionados com o participante 
+  // se algum destes, está com o campo de check-in preenchido.
+
+  global $conexao;
+
+
+  for ($i=0; $i <sizeof($palestras_filtradas); $i++) 
+  { 
+    $sql = 'SELECT *
+            FROM participante_palestra
+            WHERE id_palestra = '.$palestras_filtradas[$i].'
+            AND id_participante = '.$id_participante;
+
+    $rs = executa($sql, $conexao);
+    $a_checkin = buscar($rs);
+
+    if ($a_checkin != false) {
+      //if (!empty($a_checkin['entrada'])) { 
+      if (!empty($a_checkin[0]['entrada'])) { //Verifica se o campo está preenchido
+        return $a_checkin[0];
+        //return $a_checkin;
+      }
+    }
+  } 
+  return false;
+}
+
+function alternativasCheckin($id_participante, $palestras_filtradas) {
+// Retorna o primeiro registro encontrado,contendo a relação do participante com alguma das palestras.
+  global $conexao;
+
+  for ($i=0; $i <sizeof($palestras_filtradas); $i++) 
+  { 
+    $sql = 'SELECT *
+            FROM participante_palestra
+            WHERE id_palestra = '.$palestras_filtradas[$i].'
+            AND id_participante = '.$id_participante;
+
+    $rs = executa($sql, $conexao);
+    $a_checkin = buscar($rs);
+
+    //Somente verifica a relação e retorna o primeiro encontrado.
+    //if ($a_checkin != false) 
+    if ($a_checkin[0] != false) 
+    {
+      //return $a_checkin; // Não verificando se o campo check-in está preenchido.
+      return $a_checkin[0];
+    }
+  }
+  return false;
+}
+*/
