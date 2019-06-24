@@ -399,3 +399,105 @@ function comparaTurno($turnoAtual,$turnoPalestra)
  }
  return false;
 }
+
+function verificaDataPalestra($dia_palestra,$agora)
+{ 
+  $hoje = date('Y-m-d', strtotime($agora));
+
+  if (strtotime($hoje) == strtotime($dia_palestra))
+  {
+    return true;
+  }
+  // O dia da palestra é um dia diferente do dia atual.
+  return false;
+}
+
+function verificaQuantPalestras($palestras_turno)
+{
+  $quantidade = sizeof($palestras_turno);
+
+  if ($quantidade > 1) 
+  {
+    return true;
+  }
+  return false;
+}
+
+function verificaIntervalo($minimo,$maximo,$agora)
+{
+  $hora_checkin = date('H:i:s', strtotime($agora));
+  
+  if ((strtotime($hora_checkin) >= strtotime($minimo)) && (strtotime($hora_checkin) <= strtotime($maximo)))
+  {
+    return true;
+  }
+  //Se a tentativa é antes do horário minimo permitido ou depois do horário meximo, retorna false.
+  return false;
+}
+
+function horarioMinimo($palestras_turno)
+{
+  // Identifico qual é a primeira palestra e seleciona o inicio da palestra.
+  $hora_inicio = identificaPrimeira($palestras_turno);
+
+  $minimo = date('H:i:s', strtotime($hora_inicio.' - 15 minutes'));
+
+  return $minimo;
+}
+
+function horarioMaximo($palestras_turno)
+{
+  // Identifico qual é a ultima palestra e seleciona o fim da palestra.
+  $hora_ultima = identificaUltima($palestras_turno);
+  
+  $maximo = date('H:i:s', strtotime($hora_ultima.' +15 minutes'));
+  return $maximo;
+}
+
+function identificaPrimeira($palestras_turno)
+{
+  // Identifica a primeira palestra e retorna seu horário de inicio.
+  $verificado_quant = verificaQuantPalestras($palestras_turno);
+
+  $comparativo = buscarPalestraEspecifica($palestras_turno[0]);
+
+  if ($verificado_quant == false) 
+  {
+    return $comparativo['inicio'];
+  }
+
+  for ($i=1; $i < sizeof($palestras_turno); $i++) 
+  { 
+    $possivel_inicio = buscarPalestraEspecifica($palestras_turno[$i]);
+
+    if (strtotime($comparativo['inicio']) > strtotime($possivel_inicio)['inicio'])
+    {
+      $comparativo = $possivel_inicio;
+    }
+  }
+  return $comparativo['inicio'];
+}
+
+function identificaUltima($palestras_turno)
+{
+  // Identifica a ultima palestra e retorna seu horário de fim.
+  $verificado_quant = verificaQuantPalestras($palestras_turno);
+
+  $comparativo = buscarPalestraEspecifica($palestras_turno[0]);
+
+  if ($verificado_quant == false) 
+  {
+    return $comparativo['fim'];
+  }
+
+  for ($i=1; $i < sizeof($palestras_turno); $i++) 
+  { 
+    $possivel_inicio = buscarPalestraEspecifica($palestras_turno[$i]);
+
+    if (strtotime($comparativo['fim']) < strtotime($possivel_inicio)['fim'])
+    {
+      $comparativo = $possivel_inicio;
+    }
+  }
+  return $comparativo['fim'];
+}
