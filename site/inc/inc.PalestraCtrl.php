@@ -34,6 +34,31 @@ function buscarPalestra($id_palestra) {
   return false;
 }
 
+function buscarPalestraEspecifica($id_palestra) {
+
+  global $conexao;
+
+  $sql = 'SELECT p.*,
+                 l.nome AS nome_local,
+                 date_format(inicio, "%d/%m/%Y") AS data_inicio_format,
+                 date_format(fim, "%d/%m/%Y") AS data_fim_format,
+                 date_format(inicio, "%H:%i") AS hora_inicio_format,
+                 date_format(fim, "%H:%i") AS hora_fim_format
+            FROM palestra AS p
+            LEFT JOIN local AS l ON p.id_local = l.id_local
+            WHERE p.id_palestra = '.$id_palestra;
+
+  $rs = executa($sql, $conexao);
+ 
+  $a_palestra = buscar($rs);
+
+    if($a_palestra != false) {
+      return $a_palestra[0];
+    }
+
+  return false;
+}
+
 function buscarPalestras($limite = '') {
 
   global $conexao;
@@ -73,7 +98,6 @@ function buscarPalestras($limite = '') {
   }
 
   return null;
-
 }
 
 function buscarPalestrasDoDia($limite = '', $data = '') {
@@ -197,7 +221,6 @@ function buscarPalestrasPorData($limite = '', $data='') {
   }
 
   return null;
-
 }
 
 function buscarProximasPalestras($limite = '') {
