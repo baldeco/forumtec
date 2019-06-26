@@ -449,8 +449,7 @@ function horarioMaximo($palestras_turno)
   // Identifico qual é a ultima palestra e seleciona o fim da palestra.
   $hora_ultima = identificaUltima($palestras_turno);
   
-  //$maximo = date('H:i:s', strtotime($hora_ultima.' +15 minutes'));
-  $maximo = date('H:i:s', strtotime($hora_ultima.' +55 minutes'));
+  $maximo = date('H:i:s', strtotime($hora_ultima.' +15 minutes'));
   return $maximo;
 }
 

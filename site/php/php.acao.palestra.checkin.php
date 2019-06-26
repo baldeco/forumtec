@@ -19,7 +19,6 @@ if ($a_palestra == false) exit('Palestra não cadastrada!');
 
 $id_palestra = $a_palestra['id_palestra']; // Id da palestra atual.
 
-//******************************************************************************************
 $agora = date('Y-m-d H:i:s');
 
 // Seleciona o dia da palestra.
@@ -35,10 +34,9 @@ $palestras_filtradas = filtraPalestras($palestras_data,$a_palestra['inicio']);
 $horario_minimo = horarioMinimo($palestras_filtradas);
 //Seleciona o horário máximo permitido para realizar checkout.
 $horario_maximo = horarioMaximo($palestras_filtradas);
-//******************************************************************************************
 
 //VERIFICAÇÕES DA DATA, DO TURNO E DO HORÁRIO DAS PALESTRAS:
-//------------------------------------------------------------------------------------------
+
 // Verifica se a data da palestra coincide com o dia da tentiva de check-in:
 $valida_data = verificaDataPalestra($dia_palestra,$agora);
 
@@ -56,13 +54,6 @@ if ($valida_data == false)
 }
 
 //Se o dia de tentativa do check-in for igual ao dia da palestra, então continua o script.
-//Verifica se o turno da palestra e o turno da tentiva de check-in são iguais
-$turno_atual = identificaTurno(date('H', strtotime($agora)));
-$turno_palestra = identificaTurno(date('H', strtotime($a_palestra['inicio'])));
-$turno_comparado = comparaTurno($turno_atual,$turno_palestra);
-if ($turno_comparado == false) {
-  exit('Checkin disponivel a partir de  '.reverteData($dia_palestra).' '.$horario_minimo); 
-}
 
 // Verifica se a tentativa de check-in está dentro do intervalo, do horário minimo até o horário maximo.
 $valida_hora = verificaIntervalo($horario_minimo,$horario_maximo,$agora);
