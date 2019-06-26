@@ -441,7 +441,6 @@ function horarioMinimo($palestras_turno)
   $hora_inicio = identificaPrimeira($palestras_turno);
 
   $minimo = date('H:i:s', strtotime($hora_inicio.' - 15 minutes'));
-
   return $minimo;
 }
 
@@ -450,7 +449,8 @@ function horarioMaximo($palestras_turno)
   // Identifico qual é a ultima palestra e seleciona o fim da palestra.
   $hora_ultima = identificaUltima($palestras_turno);
   
-  $maximo = date('H:i:s', strtotime($hora_ultima.' +15 minutes'));
+  //$maximo = date('H:i:s', strtotime($hora_ultima.' +15 minutes'));
+  $maximo = date('H:i:s', strtotime($hora_ultima.' +55 minutes'));
   return $maximo;
 }
 
@@ -502,10 +502,7 @@ function identificaUltima($palestras_turno)
   return $comparativo['fim'];
 }
 
-
-// AINDA EM DESENVOLVIMENTO.
-/*
-function procurarCheckin($id_participante, $palestras_filtradas) {
+function verificarCheckin($id_participante, $palestras_filtradas) {
   // Verifica em todos os registros que tiver,os quais estiverem relacionados com o participante 
   // se algum destes, está com o campo de check-in preenchido.
 
@@ -523,15 +520,14 @@ function procurarCheckin($id_participante, $palestras_filtradas) {
     $a_checkin = buscar($rs);
 
     if ($a_checkin != false) {
-      //if (!empty($a_checkin['entrada'])) { 
       if (!empty($a_checkin[0]['entrada'])) { //Verifica se o campo está preenchido
         return $a_checkin[0];
-        //return $a_checkin;
       }
     }
   } 
   return false;
 }
+
 
 function alternativasCheckin($id_participante, $palestras_filtradas) {
 // Retorna o primeiro registro encontrado,contendo a relação do participante com alguma das palestras.
@@ -548,13 +544,10 @@ function alternativasCheckin($id_participante, $palestras_filtradas) {
     $a_checkin = buscar($rs);
 
     //Somente verifica a relação e retorna o primeiro encontrado.
-    //if ($a_checkin != false) 
     if ($a_checkin[0] != false) 
     {
-      //return $a_checkin; // Não verificando se o campo check-in está preenchido.
-      return $a_checkin[0];
+      return $a_checkin[0]; // Não verificando se o campo check-in está preenchido.
     }
   }
   return false;
 }
-*/
