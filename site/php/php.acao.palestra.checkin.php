@@ -35,7 +35,7 @@ $horario_minimo = horarioMinimo($palestras_filtradas);
 //Seleciona o horário máximo permitido para realizar checkout.
 $horario_maximo = horarioMaximo($palestras_filtradas);
 
-//VERIFICAÇÕES DA DATA, DO TURNO E DO HORÁRIO DAS PALESTRAS:
+//VERIFICAÇÕES DA DATA E DO HORÁRIO DAS PALESTRAS:
 
 // Verifica se a data da palestra coincide com o dia da tentiva de check-in:
 $valida_data = verificaDataPalestra($dia_palestra,$agora);
@@ -71,8 +71,10 @@ if ($id_participante == false) {
   header('Location: index.php?secao=inscricao&modulo=noDia&id_palestra='.$id_palestra);
   exit;
 } 
+
 // Se o usuário não está relacionado com nenhuma palestra do dia ou do turno.
-$validacao = verificaCadastro($id_participante,$palestras_filtradas); 
+$validacao = verificaRegistros($id_participante,$palestras_filtradas);
+
 if ($validacao == false) {
   header('Location: index.php?secao=inscricao&modulo=noDia&id_palestra='.$id_palestra);
   exit;
@@ -96,11 +98,10 @@ if ($checkin_preenchido == false)
     $checkin = buscarCheckin($id_palestra, $id_participante);
   }
   // Se não estiverem relacionados, é utilizado o primeiro registro encontrado que a apresenta a id do participante com uma das palestras filtradas para armazenar a entrada.
-
   if ($verificado == false) 
   {
-    // É procurado qual das palestra o participante está relacionado, sendo retornado o primeiro registro.
-    $checkin = alternativasCheckin($id_participante, $palestras_filtradas);
+    /* É procurado em qual das palestras o participante está relacionado, sendo retornado o primeiro registro, caso tenha mais de um registro.*/
+    $checkin = verificaRegistros($id_participante, $palestras_filtradas);
   }
 }
 

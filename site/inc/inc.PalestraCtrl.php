@@ -354,7 +354,7 @@ function salvarCheckout($id, $lat, $lng) {
 }
 
 
-function verificaCadastro($id_participante,$palestras_filtradas)
+function verificaRegistros($id_participante,$palestras_filtradas)
 {
   global $conexao;
 
@@ -363,16 +363,17 @@ function verificaCadastro($id_participante,$palestras_filtradas)
   { 
 
     $sql = 'SELECT *
-              FROM participante_palestra
-              WHERE id_palestra = '.$palestras_filtradas[$i].'
-               AND id_participante = '.$id_participante;
+            FROM participante_palestra
+            WHERE id_palestra = '.$palestras_filtradas[$i].'
+            AND id_participante = '.$id_participante;
 
     $rs = executa($sql, $conexao);
-
     $a_checkin = buscar($rs);
-    // Na primeira confirmação, é retornado que o participante está registrado.
-    if ($a_checkin != false) {
-      return true;
+
+    // Retorna o primeiro registro encontrado,contendo a relação do participante com alguma das palestras.
+    if ($a_checkin[0] != false) 
+    {
+      return $a_checkin[0]; // Não verificando se o campo check-in está preenchido.
     }  
   }
   return false;
@@ -431,7 +432,7 @@ function verificaIntervalo($minimo,$maximo,$agora)
   {
     return true;
   }
-  //Se a tentativa é antes do horário minimo permitido ou depois do horário meximo, retorna false.
+  //Se a tentativa é antes do horário minimo permitido ou depois do horário máximo, retorna false.
   return false;
 }
 
@@ -502,8 +503,8 @@ function identificaUltima($palestras_turno)
 }
 
 function verificarCheckin($id_participante, $palestras_filtradas) {
-  // Verifica em todos os registros que tiver,os quais estiverem relacionados com o participante 
-  // se algum destes, está com o campo de check-in preenchido.
+  /*Verifica em todos os registros que tiver,os quais estiverem relacionados com o participante 
+  se algum destes, está com o campo de check-in preenchido.*/
 
   global $conexao;
 
@@ -527,26 +528,3 @@ function verificarCheckin($id_participante, $palestras_filtradas) {
   return false;
 }
 
-
-function alternativasCheckin($id_participante, $palestras_filtradas) {
-// Retorna o primeiro registro encontrado,contendo a relação do participante com alguma das palestras.
-  global $conexao;
-
-  for ($i=0; $i <sizeof($palestras_filtradas); $i++) 
-  { 
-    $sql = 'SELECT *
-            FROM participante_palestra
-            WHERE id_palestra = '.$palestras_filtradas[$i].'
-            AND id_participante = '.$id_participante;
-
-    $rs = executa($sql, $conexao);
-    $a_checkin = buscar($rs);
-
-    //Somente verifica a relação e retorna o primeiro encontrado.
-    if ($a_checkin[0] != false) 
-    {
-      return $a_checkin[0]; // Não verificando se o campo check-in está preenchido.
-    }
-  }
-  return false;
-}
