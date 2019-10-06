@@ -173,56 +173,6 @@ function buscarToken($id_palestra) {
   return $token;
 }
 
-function buscarPalestrasPorData($limite = '', $data='') {
-
-  global $conexao;
-
-  if (!empty($limite) && $limite > 0) {
-    $limite = 'LIMIT '.$limite;
-
-  } else {
-    $limite = '';
-  }
-
-  $data_verifica = DateTime::createFromFormat('d/m/Y', $data);
-
-  if($data_verifica){
-    $data = $data_verifica->format('Y-m-d');
-
-  }else{
-    $data = date('Y-m-d');
-  }
-
-  $sql = 'SELECT p.*,
-                 l.nome AS nome_local, 
-                 date_format(p.inicio, "%d/%m/%Y") AS data_inicio_format,
-                 date_format(p.fim, "%d/%m/%Y") AS data_fim_format,
-                 date_format(p.inicio, "%H:%i") AS hora_inicio_format,
-                 date_format(p.fim, "%H:%i") AS hora_fim_format
-            FROM palestra AS p
-            LEFT JOIN local AS l ON p.id_local = l.id_local
-            WHERE p.status = "a" && p.inicio LIKE "'.$data.'%"
-            ORDER BY p.inicio desc
-            '.$limite;
-
-  $rs = executa($sql, $conexao);
-  $a_palestras = buscar($rs);
-
-
-  if($a_palestras != false){
-
-    for ($i = 0; $i < sizeof($a_palestras); $i++) {
-      $a_palestras[$i]['imagem'] = criarNomeImagens($a_palestras[$i]['imagem'], DIR_PALESTRAS);
-      $a_palestras[$i]['palestrantes'] = buscarPalestrantesPalestra($a_palestras[$i]['id_palestra']);
-    }
-
-    return $a_palestras;
-
-  }
-
-  return null;
-}
-
 function buscarProximasPalestras($limite = '') {
 
   global $conexao;
