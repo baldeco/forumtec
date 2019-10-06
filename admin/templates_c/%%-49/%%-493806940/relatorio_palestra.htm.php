@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.1, created on 2019-10-06 12:09:01
+<?php /* Smarty version 2.6.1, created on 2019-10-06 13:37:08
          compiled from relatorio_palestra.htm */ ?>
 <div id="main-wrapper">
   <!-- Formulario/Pesquisa-->
@@ -7,6 +7,7 @@
       <h3 class="panel-title">Pesquisa</h3>
     </div>
     <div class="panel-body">
+
 
       <form name="formulario" class="form-horizontal" action="acao.php" method="POST" enctype="multipart/form-data">
 
@@ -26,7 +27,8 @@
               <input type="hidden" name="modulo" value="palestra">
               <input type="hidden" name="acao" value="<?php echo $this->_tpl_vars['acao']; ?>
 ">
-              <button type="submit" class="btn btn-success">Filtrar</button>
+              <button type="submit" class="btn btn-success" onclick="return validar()"><?php echo $this->_tpl_vars['acao']; ?>
+</button>
               <button type="reset" class="btn btn-primary">Limpar Campos</button>
             </div>
           </div>
@@ -74,6 +76,8 @@
   </div>
 </div>
 
+  <!--  Javascript do formulário -->
+  <script src="assets/js/form_relatorio_palestra.js"></script>
 
 
 

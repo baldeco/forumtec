@@ -224,6 +224,39 @@ function buscarPalestras($limite = '') {
   return $a_palestras;
 }
 
+function buscarPalestrasDoDia($limite = '', $data = '') {
+  global $conexao;
+
+  if (!empty($limite) && $limite > 0) {
+    $limite = 'LIMIT '.$limite;
+
+  } else {
+    $limite = '';
+  }
+ 
+  $sql = 'SELECT p.*,
+                 l.nome AS nome_local, 
+                 date_format(p.inicio, "%d/%m/%Y") AS data_inicio_format,
+                 date_format(p.fim, "%d/%m/%Y") AS data_fim_format,
+                 date_format(p.inicio, "%H:%i") AS hora_inicio_format,
+                 date_format(p.fim, "%H:%i") AS hora_fim_format
+            FROM palestra AS p
+            LEFT JOIN local AS l ON p.id_local = l.id_local
+            WHERE p.status = "a" && p.inicio LIKE "'.$data.'%"
+            ORDER BY p.inicio desc
+            '.$limite;
+
+  $rs = executa($sql, $conexao);
+  
+  $a_palestras = buscar($rs);
+
+  if($a_palestras != false)
+  {
+    return $a_palestras;
+  }
+  return null;
+}
+
 function buscarPalestra($id_palestra) {
 
   global $conexao;
