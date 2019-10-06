@@ -24,6 +24,14 @@
           <li<!--{if $modulo == 'usuario' }--> class="active"<!--{/if}-->><a href="?secao=cadastro&modulo=usuario">Usuários</a></li>
         </ul>
       </li>
+      <li class="droplink <!--{if $secao == 'relatorio' }-->active open<!--{/if}-->">
+        <a href="#" class="waves-effect waves-button">
+          <span class="menu-icon glyphicon glyphicon-list-alt"></span> Relatorio<span class="arrow"></span>
+        </a>
+        <ul class="sub-menu active open">
+          <li<!--{if $modulo == 'palestra' }--> class="active"<!--{/if}-->><a href="?secao=relatorio&modulo=palestra">Palestras</a></li>
+        </ul>
+      </li>
     </ul>
   </div>
 </div>

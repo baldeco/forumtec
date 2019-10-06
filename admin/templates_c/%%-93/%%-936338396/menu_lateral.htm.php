@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.1, created on 2019-06-25 18:19:47
+<?php /* Smarty version 2.6.1, created on 2019-10-06 12:08:56
          compiled from menu_lateral.htm */ ?>
 <div class="page-sidebar sidebar">
   <div class="page-sidebar-inner slimscroll">
@@ -24,6 +24,14 @@
           <li<?php if ($this->_tpl_vars['modulo'] == 'local'): ?> class="active"<?php endif; ?>><a href="?secao=cadastro&modulo=local">Locais</a></li>
           <li<?php if ($this->_tpl_vars['modulo'] == 'banner'): ?> class="active"<?php endif; ?>><a href="?secao=cadastro&modulo=banner">Banners</a></li>
           <li<?php if ($this->_tpl_vars['modulo'] == 'usuario'): ?> class="active"<?php endif; ?>><a href="?secao=cadastro&modulo=usuario">Usuários</a></li>
+        </ul>
+      </li>
+      <li class="droplink <?php if ($this->_tpl_vars['secao'] == 'relatorio'): ?>active open<?php endif; ?>">
+        <a href="#" class="waves-effect waves-button">
+          <span class="menu-icon glyphicon glyphicon-list-alt"></span> Relatorio<span class="arrow"></span>
+        </a>
+        <ul class="sub-menu active open">
+          <li<?php if ($this->_tpl_vars['modulo'] == 'palestra'): ?> class="active"<?php endif; ?>><a href="?secao=relatorio&modulo=palestra">Palestras</a></li>
         </ul>
       </li>
     </ul>

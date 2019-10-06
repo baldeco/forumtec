@@ -1,36 +1,72 @@
 <div id="main-wrapper">
+  <!-- Formulario/Pesquisa-->
+  <div class="panel panel-white">
+    <div class="panel-heading clearfix">
+      <h3 class="panel-title">Pesquisa</h3>
+    </div>
+    <div class="panel-body">
+
+      <form name="formulario" class="form-horizontal" action="acao.php" method="POST" enctype="multipart/form-data">
+
+        <!-- Data -->
+        <div class="form-group">
+          <label class="col-sm-3 control-label">Data *</label>
+          <div class="col-sm-2">
+            <input type="text" class="form-control date-picker" name="f_data" value="<!--{$a_palestra.data_format}-->">
+          </div>
+        </div>
+
+          <!-- Botões e Hidden fields -->
+          <div class="form-group">
+            <div class="col-sm-offset-3 col-sm-6">
+              <input type="hidden" name="secao" value="relatorio">
+              <input type="hidden" name="modulo" value="palestra">
+              <input type="hidden" name="acao" value="<!--{$acao}-->">
+              <button type="submit" class="btn btn-success">Filtrar</button>
+              <button type="reset" class="btn btn-primary">Limpar Campos</button>
+            </div>
+          </div>
+        </form>
+      </div>
+    </div>
+
   <!-- Tabela -->
   <div class="panel panel-white">
     <div class="panel-heading clearfix">
-      <h3 class="panel-title"><!--{$a_palestra.titulo}--></h3>
+      <h4 class="panel-title">Participantes</h4>
     </div>
     <div class="panel-body">
       <div class="table-responsive">
         <table class="table table-striped table-condensed">
           <thead>
             <tr>
-              <th>Participante</th>
+              <th>Nome</th>
+              <th>CPF</th>
               <th>E-mail</th>
               <th>Telefone</th>
-              <th>Horário entrada</th>
-              <th>Horário saída</th>
-              <th>Status</th>
+              <th>Instituição</th>
+              <th>Presença</th>
             </tr>
           </thead>
           <tbody>
-            <!--{foreach from=$a_participantes_palestra item=participante}-->
+            <!--{foreach from=$a_participantes item=participante}-->
             <tr>
               <td><!--{$participante.nome}--></td>
+              <td><!--{if $participante.cpf}--><!--{$participante.cpf}--><!--{else}-->Inexistente<!--{/if}--></td>
               <td><!--{$participante.email}--></td>
-              <td><!--{$participante.telefone}--></td>
-              <td><!--{$participante.entrada_participante_format}--></td>
-              <td><!--{$participante.saida_participante_format}--></td>
-              <td>Vazio</td>
+              <td><!--{if $participante.telefone}--><!--{$participante.telefone}--><!--{else}-->Inexistente<!--{/if}--></td>
+              <td><!--{if $participante.instituicao}--><!--{$participante.instituicao}--><!--{else}-->Outros(as)<!--{/if}--></td>
+              <td><!--{if $participante.status == 'i'}-->Inativo<!--{else}-->Ativo<!--{/if}--></td>
+              <!--{/foreach}-->
             </tr>
-            <!--{/foreach}-->
           </tbody>
         </table>
       </div>
     </div>
   </div>
 </div>
+
+
+
+
+

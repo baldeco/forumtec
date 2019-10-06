@@ -57,6 +57,16 @@ switch ($secao) {
     die();
     break;
 
+  case 'relatorio':
+    switch ($modulo) {
+      case 'palestra':
+        include_once('php/php.acao.relatorio.palestra.php');
+        break;
+    }
+    header('Location: index.php?secao='.$secao.'&modulo='.$modulo.$complemento);
+    die();
+    break;
+
   default:
     header('Location: ../index.php');
     break;

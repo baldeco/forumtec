@@ -1,20 +1,25 @@
 <?php
 
-require_once('inc/inc.InscricoesPalestraCtrl.php');
-require_once('inc/inc.PalestraCtrl.php');
+require_once('inc/inc.ParticipanteCtrl.php');
+require_once('inc/inc.InstituicaoCtrl.php');
+require_once('inc/inc.LocalCtrl.php');
 
-if (isset($_GET['id_palestra']) && !empty($_GET['id_palestra'])) {
-  
-  $id_palestra = (int)$_GET['id_palestra'];
- 
-  $a_palestra = buscarPalestra($id_palestra);
- 
-  if ($a_palestra == false) die('id da palestra é inválido');
- 
-  $a_participantes_palestra = buscarParticipantesPalestra($id_palestra);
+$acao = 'relatorio';
 
-  $smarty->assign('a_palestra', $a_palestra);
-  $smarty->assign('a_participantes_palestra', $a_participantes_palestra);
-
+if (isset($_GET['id_participante']) && !empty($_GET['id_participante'])) {
+  $id_participante = (int)$_GET['id_participante'];
+  $a_participante = buscarParticipante($id_participante);
+  if ($a_participante == false) die('id do participante é inválido');
+  $acao = 'alterar';
+  $smarty->assign('a_participante', $a_participante);
 }
+
+$a_participantes = buscarParticipantes();
+$a_instituicoes = buscarInstituicoes();
+$a_locais = buscarLocais();
+
+$smarty->assign('a_participantes', $a_participantes);
+$smarty->assign('a_instituicoes', $a_instituicoes);
+$smarty->assign('a_locais', $a_locais);
+$smarty->assign('acao', $acao);
 
