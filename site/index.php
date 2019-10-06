@@ -96,7 +96,7 @@ switch ($secao) {
         include_once('php/php.index.palestra.inscricao.php');
         break;
 
-      case 'noDia':
+      case 'dia':
         include_once('php/php.index.palestra.inscricao.php');
         break;
 

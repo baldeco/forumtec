@@ -1,5 +1,5 @@
 <?php /* Smarty version 2.6.1, created on 2019-06-23 21:51:44
-         compiled from inscricao_noDia.htm */ ?>
+         compiled from inscricao_dia.htm */ ?>
 <div class="main-container container" id="main-container">
   <!-- Content -->
   <div class="row">
@@ -58,7 +58,7 @@
               </select>
             </div>
             <input type="hidden" name="secao" value="inscricao"/>
-            <input type="hidden" name="modulo" value="noDia"/>
+            <input type="hidden" name="modulo" value="dia"/>
             <input type="hidden" name="tipo" value="palestra"/>
             <input type="hidden" id="lat" name="f_lat" value="">
             <input type="hidden" id="lng" name="f_lng" value="">
@@ -119,4 +119,4 @@ function getLocation () {
 $(document).ready(function () {
   /* getLocation(); */
 });
-</script>
+</script>

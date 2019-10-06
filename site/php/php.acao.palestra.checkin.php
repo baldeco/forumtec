@@ -68,7 +68,7 @@ $id_participante = buscarIDParticipantePorEmail($a_dados['email']);
 
 //Se o participante não tiver nenhum cadastro na tabela participante
 if ($id_participante == false) {
-  header('Location: index.php?secao=inscricao&modulo=noDia&id_palestra='.$id_palestra);
+  header('Location: index.php?secao=inscricao&modulo=dia&id_palestra='.$id_palestra);
   exit;
 } 
 
@@ -76,7 +76,7 @@ if ($id_participante == false) {
 $validacao = verificaRegistros($id_participante,$palestras_filtradas);
 
 if ($validacao == false) {
-  header('Location: index.php?secao=inscricao&modulo=noDia&id_palestra='.$id_palestra);
+  header('Location: index.php?secao=inscricao&modulo=dia&id_palestra='.$id_palestra);
   exit;
 }
 
