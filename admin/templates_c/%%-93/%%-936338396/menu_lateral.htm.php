@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.1, created on 2019-10-06 12:08:56
+<?php /* Smarty version 2.6.1, created on 2019-10-07 22:28:48
          compiled from menu_lateral.htm */ ?>
 <div class="page-sidebar sidebar">
   <div class="page-sidebar-inner slimscroll">
@@ -32,6 +32,7 @@
         </a>
         <ul class="sub-menu active open">
           <li<?php if ($this->_tpl_vars['modulo'] == 'palestra'): ?> class="active"<?php endif; ?>><a href="?secao=relatorio&modulo=palestra">Palestras</a></li>
+          <li<?php if ($this->_tpl_vars['modulo'] == 'oficina'): ?> class="active"<?php endif; ?>><a href="?secao=relatorio&modulo=oficina">Oficinas</a></li>
         </ul>
       </li>
     </ul>

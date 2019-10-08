@@ -1,6 +1,7 @@
 <?php
 
-	function deletarInscricoesOficina($id_oficina){
+	function deletarInscricoesOficina($id_oficina)
+	{
 
 		global $conexao;
 
@@ -11,7 +12,8 @@
 
 	}
 
-	function deletarParticipanteOficina($id_participante){
+	function deletarParticipanteOficina($id_participante)
+	{
 
 		global $conexao;
 
@@ -22,5 +24,29 @@
 
 	}
 
+	function buscarParticipantesEvento($data)
+	{
+		global $conexao;
 
+	    $sql = 'SELECT  participante_oficina.id_participante_oficina,
+	        		    participante.nome,
+	        		    participante.cpf,
+						participante.email,
+						participante.telefone,
+					    instituicao.nome AS instituicao
+				FROM oficina
+				INNER JOIN participante_oficina
+				ON oficina.id_oficina = participante_oficina.id_oficina
+				INNER JOIN participante
+				ON participante_oficina.id_participante = participante.id_participante
+				INNER JOIN instituicao
+				ON participante.id_instituicao = instituicao.id_instituicao
+				WHERE oficina.inicio LIKE "'.$data.'%"';
+
+		$rs = executa($sql, $conexao);
+
+		$a_participantes_oficina = buscar($rs);
+
+		return $a_participantes_oficina;
+	}
 ?>

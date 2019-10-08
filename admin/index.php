@@ -91,6 +91,9 @@ switch ($secao) {
       case 'palestra':
         include_once('php/php.index.relatorio.palestra.php');
         break;
+      case 'oficina':
+        include_once('php/php.index.relatorio.oficina.php');
+        break;
     }
     break;
 }

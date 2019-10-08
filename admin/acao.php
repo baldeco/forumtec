@@ -58,12 +58,16 @@ switch ($secao) {
     break;
 
   case 'relatorio':
-    switch ($modulo) {
+    switch ($modulo) 
+    {
       case 'palestra':
         include_once('php/php.acao.relatorio.palestra.php');
         break;
+      case 'oficina':
+        include_once('php/php.acao.relatorio.oficina.php');
+        break;
     }
-    header('Location: index.php?secao='.$secao.'&modulo='.$modulo.$complemento. '&data='.$data);
+    header('Location: index.php?secao='.$secao.'&modulo='.$modulo.$complemento.'&data='.$data);
     die();
     break;
 
