@@ -18,6 +18,7 @@ function validar()
 		alertaCampo(data);
 		return false;
 	}
+
 }
 
 function verificaData(data){
@@ -32,7 +33,7 @@ function verificaData(data){
 	if(Date.parse(dataFormatada) <= dataAtual.getTime()){
 		return true;
 	}
-	// A data não pode ser maior, pois mesmo se tiver palestra quer dizer que ainda não ocorreu.
+	// A data não pode ser maior, pois mesmo se tiver oficinas quer dizer que ainda não ocorreu.
 	return false;
 
 }

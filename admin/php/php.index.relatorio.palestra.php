@@ -1,7 +1,6 @@
 <?php
 
 require_once('inc/inc.InscricoesPalestraCtrl.php');
-require_once('inc/inc.PalestraCtrl.php');
 
 $acao = 'relatorio';
 
