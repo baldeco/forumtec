@@ -7,7 +7,7 @@
     <div class="panel-body">
 
       <!-- Alertas de sucesso e erro -->
-      
+
       <!--{if $smarty.get.sucesso}-->
       <div class="alert alert-success" role="alert">
         <!--{$smarty.get.sucesso}-->
@@ -57,10 +57,19 @@
               <th>E-mail</th>
               <th>Telefone</th>
               <th>Instituição</th>
-              <th>Presença</th>
+              <th>Status</th>
             </tr>
           </thead>
           <tbody>
+            <!--{if $mensagem_tabela != NULL}-->
+              <tr>
+                <td colspan="6"> 
+                  <div align="center">Aviso: Tabela sem registros</div>
+                </td>
+              </tr>
+            <!--{/if}-->
+
+            <!--{if $a_participantes != 1}-->
             <!--{foreach from=$a_participantes item=participante}-->
             <tr>
               <td><!--{$participante.nome}--></td>
@@ -69,8 +78,18 @@
               <td><!--{if $participante.telefone}--><!--{$participante.telefone}--><!--{else}-->Inexistente<!--{/if}--></td>
               <td><!--{if $participante.instituicao}--><!--{$participante.instituicao}--><!--{else}-->Outros(as)<!--{/if}--></td>
               <td><!--{if $participante.status == 'i'}-->Inativo<!--{else}-->Ativo<!--{/if}--></td>
-              <!--{/foreach}-->
             </tr>
+            <!--{/foreach}-->
+            <!--{/if}-->
+
+            <!--{if $a_participantes == NULL}-->
+            <tr>
+              <td colspan="6"> 
+                <div align="center">Aviso: Nenhum registro retornado</div>
+              </td>
+            </tr>
+            <!--{/if}-->
+
           </tbody>
         </table>
       </div>

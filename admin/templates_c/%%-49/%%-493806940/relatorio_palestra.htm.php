@@ -1,4 +1,4 @@
-<?php /* Smarty version 2.6.1, created on 2019-10-06 13:37:08
+<?php /* Smarty version 2.6.1, created on 2019-10-07 21:37:30
          compiled from relatorio_palestra.htm */ ?>
 <div id="main-wrapper">
   <!-- Formulario/Pesquisa-->
@@ -8,6 +8,19 @@
     </div>
     <div class="panel-body">
 
+      <!-- Alertas de sucesso e erro -->
+
+      <?php if ($_GET['sucesso']): ?>
+      <div class="alert alert-success" role="alert">
+        <?php echo $_GET['sucesso']; ?>
+
+      </div>
+      <?php elseif ($_GET['erro']): ?>
+      <div class="alert alert-danger" role="alert">
+        <?php echo $_GET['erro']; ?>
+
+      </div>
+      <?php endif; ?>
 
       <form name="formulario" class="form-horizontal" action="acao.php" method="POST" enctype="multipart/form-data">
 
@@ -51,10 +64,19 @@
               <th>E-mail</th>
               <th>Telefone</th>
               <th>Instituição</th>
-              <th>Presença</th>
+              <th>Status</th>
             </tr>
           </thead>
           <tbody>
+            <?php if ($this->_tpl_vars['mensagem_tabela'] != NULL): ?>
+              <tr>
+                <td colspan="6"> 
+                  <div align="center">Aviso: Tabela sem registros</div>
+                </td>
+              </tr>
+            <?php endif; ?>
+
+            <?php if ($this->_tpl_vars['a_participantes'] != 1): ?>
             <?php if (count($_from = (array)$this->_tpl_vars['a_participantes'])):
     foreach ($_from as $this->_tpl_vars['participante']):
 ?>
@@ -67,8 +89,18 @@
               <td><?php if ($this->_tpl_vars['participante']['telefone']):  echo $this->_tpl_vars['participante']['telefone'];  else: ?>Inexistente<?php endif; ?></td>
               <td><?php if ($this->_tpl_vars['participante']['instituicao']):  echo $this->_tpl_vars['participante']['instituicao'];  else: ?>Outros(as)<?php endif; ?></td>
               <td><?php if ($this->_tpl_vars['participante']['status'] == 'i'): ?>Inativo<?php else: ?>Ativo<?php endif; ?></td>
-              <?php endforeach; unset($_from); endif; ?>
             </tr>
+            <?php endforeach; unset($_from); endif; ?>
+            <?php endif; ?>
+
+            <?php if ($this->_tpl_vars['a_participantes'] == NULL): ?>
+            <tr>
+              <td colspan="6"> 
+                <div align="center">Aviso: Nenhum registro retornado</div>
+              </td>
+            </tr>
+            <?php endif; ?>
+
           </tbody>
         </table>
       </div>

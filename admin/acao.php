@@ -63,7 +63,7 @@ switch ($secao) {
         include_once('php/php.acao.relatorio.palestra.php');
         break;
     }
-    header('Location: index.php?secao='.$secao.'&modulo='.$modulo.$complemento);
+    header('Location: index.php?secao='.$secao.'&modulo='.$modulo.$complemento. '&data='.$data);
     die();
     break;
 
